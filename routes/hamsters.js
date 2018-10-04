@@ -43,4 +43,23 @@ router.post('/createhamster', function(req, res, next) {
 
 });
 
+router.put('/upvote', function(req, res, next) {
+
+  hamsterController
+    .updateVoteCount(req.body.id)
+    .then(hamster => {
+      res.json({
+        confirmation: 'success',
+        hamster 
+      })
+    })
+    .catch(err => {
+      res.json({
+        confirmation: 'failure',
+        err 
+      })
+    })
+
+});
+
 module.exports = router;

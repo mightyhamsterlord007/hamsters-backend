@@ -27,5 +27,33 @@ module.exports = {
                     reject(err);
                 });
         });
+    },
+    updateVoteCount: (id) => {
+        return new Promise((resolve, reject) => {          
+            Hamster.findById(id)
+                .then(foundHamster => {
+
+                    let currentHamsterVote = foundHamster.votes;
+
+                    let hamsterVoteObject = {}
+
+                    hamsterVoteObject.votes = currentHamsterVote += 1;
+  
+                    Hamster.findByIdAndUpdate(id, hamsterVoteObject, {new: true})
+                    .then(hamster => {
+                        resolve(hamster)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(id)
+                    })
+
+                })
+                .catch(err => {
+                    reject(err);
+                })
+
+        })
+
     }
 }
